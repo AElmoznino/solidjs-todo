@@ -1,5 +1,6 @@
 import { createState } from "solid-js";
 import Input from "./Input";
+import TodoItem from "./TodoItem";
 import { uuid } from '../utils'
 
 export enum Status {
@@ -25,7 +26,17 @@ const Todo = () => {
   });
 
   const handleInput = (v: string) => {
-    setState('todos', t => [...t, {id: uuid(), title: v, status: Status.Active }]);
+    setState('todos', currentTodos => [...currentTodos, {id: uuid(), title: v, status: Status.Active }]);
+  }
+
+  const handleComplete = (id: string) => {
+
+    setState('todos', currentTodos => currentTodos.map((todo:any) => {
+      if(todo.id === id){
+        todo.status = Status.Completed
+      }
+      return todo
+    }))
   }
 
   return (
@@ -33,7 +44,7 @@ const Todo = () => {
        <h1>Todo</h1>
        <Input  handleSubmit={v => handleInput(v)}/>
        <pre>{JSON.stringify(state.todos, null, 2)}</pre>
-       {todos.map(todo => <TodoItem todo={todo} />)}
+       {state.todos.map(todo => <TodoItem todo={todo} handleComplete={handleComplete}/>)}
     </div>
   );
 }
