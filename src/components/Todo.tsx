@@ -1,4 +1,5 @@
 import { createState } from "solid-js";
+import Input from "./Input";
 
 export enum Status {
   Started = "started",
@@ -25,7 +26,7 @@ const Todo = () => {
   return (
     <div class="App">
        <h1>Todo</h1>
-       <input />
+       <Input />
     </div>
   );
 }
