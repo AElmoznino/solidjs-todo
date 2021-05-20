@@ -1,17 +1,11 @@
-import { createSignal } from "solid-js";
-
 interface InputProps {
   handleSubmit: (value: string) => void;
 };
 
 const Input = (props:InputProps) => {
-  const [value, setValue] = createSignal("");
   const handleChange = (e:any) => {
-    if (e.key === "Enter") {
-      props.handleSubmit(value());
-    } else {
-      setValue(e);
-    }
+    console.log('E: ', e, 'VALUE: ', e.target.value)
+    props.handleSubmit(e.target.value);
   }
   return <input type="text" onChange={e => handleChange(e)} />;
 }
